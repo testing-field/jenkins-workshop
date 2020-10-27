@@ -16,9 +16,8 @@ add-apt-repository \
 apt-get update && \
 apt-get -y install docker-ce docker-compose
 
-RUN echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list \
-&&      apt-get update              \
-&&      apt-get install -y git hub  \
+RUN apt-get update \
+&&      apt-get install -y git git-hub \
 &&      apt-get clean all
 
 RUN groupadd -g 998 dockerhost
@@ -28,8 +27,8 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s 
 RUN chmod a+x kubectl
 RUN mv kubectl /usr/bin
 
-RUN curl -LO https://github.com/mozilla/sops/releases/download/3.4.0/sops-3.4.0.linux
-RUN chmod a+x sops-3.4.0.linux
-RUN mv sops-3.4.0.linux /usr/bin/sops
+RUN curl -LO https://github.com/mozilla/sops/releases/download/3.6.1/sops-3.6.1.linux
+RUN chmod a+x sops-3.6.1.linux
+RUN mv sops-3.6.1.linux /usr/bin/sops
 
 USER jenkins

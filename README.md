@@ -11,22 +11,33 @@ that is necessary to get the kube credentials
 ## Install via Dockerfile
 
 ```
-docker build -t jenkins .
+docker build -t wdalmut/jenkins:lts .
 ```
 
-## Run it
+## Run it with Minikube
 
-```
+```sh
 docker run \
 -p 8080:8080 -p 50000:50000 \
--v jenkins_home:/var/jenkins_home \
+-v $(pwd)/jenkins_home:/var/jenkins_home \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v ~/.kube:/var/jenkins_home/.kube \
 -v ~/.minikube/ca.crt:/var/jenkins_home/.minikube/ca.crt \
 -v ~/.minikube/client.crt:/var/jenkins_home/.minikube/client.crt \
 -v ~/.minikube/client.key:/var/jenkins_home/.minikube/client.key \
 --name jenkins \
-jenkins
+wdalmut/jenkins:lts
+```
+
+### Run it without Minikube
+
+```
+docker run \
+-p 8080:8080 -p 50000:50000 \
+-v $(pwd)/jenkins_home:/var/jenkins_home \
+-v /var/run/docker.sock:/var/run/docker.sock \
+--name jenkins \
+wdalmut/jenkins:lts
 ```
 
 ## Prepare Docker Hub credentials
